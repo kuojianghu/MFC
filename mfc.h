@@ -43,23 +43,25 @@ struct AFX_CLASSINIT{
 
 class Object{
   public:
+    virtual CruntimeClass* GetRuntimeClass() const;
+  public:
+    static CruntimeClass classCobject;
     ~Object(){}
   protected:
     Object(){}
 };
 
 class CmdTarget : public Cobject{
+DECLARE_DYNAMIC(CmdaTarget)
 public:
   ~CmdTarget(){}
   CmdTarget(){}
 public:
-  virtual CruntimeClass* GetRuntimeClass() const;
-public:
-  static CruntimeClass classCobject;
+
 };
 
 class CwinThread : public CmdTarget{
-DECLARE_DYNAMIC(CmdaTarget)
+DECLARE_DYNAMIC(CwinThread)
 public:
   ~CwinThread(){}
   CWinThread(){}
