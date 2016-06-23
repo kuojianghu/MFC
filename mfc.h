@@ -59,6 +59,7 @@ public:
 };
 
 class CwinThread : public CmdTarget{
+DECLARE_DYNAMIC(CmdaTarget)
 public:
   ~CwinThread(){}
   CWinThread(){}
@@ -74,6 +75,7 @@ public:
 class Cwnd;
 
 class CwinApp : public CwinThread{
+DECLARE_DYNAMIC(CwinApp)
 public:
   ~CwinApp(){ };
   CwinApp(){
@@ -94,12 +96,14 @@ public:
 };
 
 class Cdocument : public CmdTarget{
+DECLARE_DYNAMIC(Cdocument)
 public:
   ~Cdocument(){}
   Cdocument(){}
 };
 
 class Cwnd : public CmdTarget{
+DECLARE_CYNAMIC(Wnd)
 public:
   ~Cwnd(){}
   Cwnd(){}
@@ -117,6 +121,7 @@ public:
 };
 
 class CframeWnd : public Cwnd{
+DECLARE_DYNAMIC(CframeWnd)
 public:
   ~CframeWnd(){}
   CframeWnd(){}
@@ -130,6 +135,7 @@ public:
 };
 
 class Cview : public Cwnd{
+DECLARE_DYNAMIC(Cview)
 public:
   ~Cview(){}
   Cview(){}
