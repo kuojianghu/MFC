@@ -22,7 +22,16 @@ class CwinThread : public CmdTarget{
 public:
   ~CwinThread(){}
   CWinThread(){}
+public:
+  virtual bool InitInstance(){
+    return true;
+  }
+  virtual bool run(){
+    return true;
+  }
 };
+
+class Cwnd;
 
 class CwinApp : public CwinThread{
 public:
@@ -30,8 +39,18 @@ public:
   CwinApp(){
     m_pCurrentWinApp = this;
   }
-private:
+  virtual bool InitAppliation(){
+    return true;
+  }
+  virtual bool InitInstance(){
+    return true;
+  }
+  virtual bool run(){
+    return CwinThread::run();
+  }
+public:
   CwinApp *m_pCurrentWinApp;
+  Cwnd* m_pMianWnd;
 };
 
 class Cdocument : public CmdTarget{
@@ -44,12 +63,30 @@ class Cwnd : public CmdTarget{
 public:
   ~Cwnd(){}
   Cwnd(){}
+public:
+  virtual bool Create(){
+    return true;
+  }
+  virtual bool CreateEx(){
+    PreCreateWindow();
+    return true;
+  }
+  virtual bool PreCreateWindow(){
+    return true;
+  }
 };
 
 class CframeWnd : public Cwnd{
 public:
   ~CframeWnd(){}
   CframeWnd(){}
+public:
+  bool Create(){
+    CreateEx();
+  }
+  virtual bool PreCreateWindow(){
+    return true;
+  }
 };
 
 class Cview : public Cwnd{
