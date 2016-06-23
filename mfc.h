@@ -1,7 +1,43 @@
 #ifndef MFC_H__
 #define MFC_H__
 
+#define LPCSTR LPSTR
+typedef char* LPSTR;
 #incldue<iostream>
+#define PASCAL _stdcall
+class Coject;
+
+struct CruntimeClass{
+  LPCSTR m_lpszClassName;
+  int m_nObjectSize;
+  Cobject* (PASCAL *m_pfnCreateObject)();
+  static CruntimeClass* pFristClass;
+  CruntimeClass* m_pBaseClass;
+  CruntimeClass* m_pNextClass;
+}
+
+struct AFX_CLASSINIT{
+  AFX_CLASSINIT(CruntimeClass* pNewClass)
+};
+
+#define RUNTIME_CLASS(class_name)\
+        (&class_name::class##class_name)
+
+#define DECLARE_DYNAMIC(class_name)\
+  public:\
+    static CruntimeClass class##class_name;\
+    virtual CruntimeClass* GetRuntimeClss()const;
+
+#define _IMPLEMENT_RUNTIMECLASS(class_name, base_class_name, wSchema, pfnNew)\
+        static char _lpsa##class_name[] = #class_name;\
+        CruntimeClass class_name::class##class_name = {\
+            lpsz##class_name, sizeof(class_name), wSchema, pfnNew,\
+            static AFX_CLASSINIT _init_##class_name(&class_nameLLclass##class_name);\
+            CruntimeClass class_name::GetRuntimeClass() const\
+                { return &class_name::class##class_name; }
+
+#define _IMPLEMENT_DYNAMIC(class_name, base_class_name) \
+        _IMPLEMENT_TUNTIMECLASS(class_name, base_class_name, 0xFFFF, NULL)
 
 /*define the base of class mfc of object*/
 
@@ -16,6 +52,10 @@ class CmdTarget : public Cobject{
 public:
   ~CmdTarget(){}
   CmdTarget(){}
+public:
+  virtual CruntimeClass* GetRuntimeClass() const;
+public:
+  static CruntimeClass classCobject;
 };
 
 class CwinThread : public CmdTarget{
