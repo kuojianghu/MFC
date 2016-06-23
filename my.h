@@ -13,7 +13,14 @@ public:
 class CmyFrameWnd : public CframeWnd{
 public:
   ~CmyFrameWnd(){}
-  CmyFrameWnd(){}
+  CmyFrameWnd(){
+    Create();
+  }
+public:
+  virtual bool InitInstance(){
+    m_pMianWnd = new CmyFrameWnd;
+    return true;
+  }
 };
 
 #endif
