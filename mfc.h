@@ -27,7 +27,11 @@ public:
 class CwinApp : public CwinThread{
 public:
   ~CwinApp(){ };
-  CwinApp(){}
+  CwinApp(){
+    m_pCurrentWinApp = this;
+  }
+private:
+  CwinApp *m_pCurrentWinApp;
 };
 
 class Cdocument : public CmdTarget{
@@ -38,7 +42,7 @@ public:
 
 class Cwnd : public CmdTarget{
 public:
-  ~Cwnd(){  }
+  ~Cwnd(){}
   Cwnd(){}
 };
 
